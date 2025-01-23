@@ -1,43 +1,38 @@
 package org.example;
 
 import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
-
-import static java.awt.Color.getColor;
-import static java.awt.SystemColor.text;
 
 public class Main {
 
     public static void main(String[] args) {
-        printFreeWords("Orange");
-        printFreeWords("Banana");
-        printFreeWords("Apple");
+        printFreeWords("Orange", "Banana", "Apple");
         checkSumSing();
         printColor();
         compareNumbers();
-        getSum1();
-        positiveNumber();
-        positiveNumber1();
+        getSum1(6, 9);
+        positiveNumber(-8);
+        positiveNumber1(-6);
         print();
         leapYear();
         arr();
         arr100();
         returnArr(11, 3);
+
     }
 
     //1
-    public static void printFreeWords(String text) {
-
-        System.out.println(text);
+    public static void printFreeWords(String text1, String text2, String text3) {
+        System.out.println(text1);
+        System.out.println(text2);
+        System.out.println(text3);
 
     }
 
+
     //2
     public static void checkSumSing() {
-        int a = 4;
+        int a = 10;
         int b = -5;
-        System.out.println(a + b);
 
         if (a + b >= 0) {
             System.out.println("Сумма положительная");
@@ -63,7 +58,7 @@ public class Main {
 
     //4
     private static void compareNumbers() {
-        int a = 2;
+        int a = 9;
         int b = 3;
 
         if (a >= b) {
@@ -73,21 +68,21 @@ public class Main {
         }
     }
 
+
     //5
-    private static boolean getSum1() {
-        int x = 6;
-        int y = 8;
-        int sum = x + y;
-        if (sum >= 10 && sum <= 20) {
+    private static boolean getSum1(int x, int y) {
+
+        if (x + y >= 10 && x + y <= 20) {
             return true;
         } else {
             return false;
         }
+
     }
 
     //6
-    private static void positiveNumber() {
-        int a = -7;
+    private static void positiveNumber(int a) {
+
         if (a >= 0) {
             System.out.println("Передали положительное число");
         } else {
@@ -96,8 +91,8 @@ public class Main {
     }
 
     //7
-    private static boolean positiveNumber1() {
-        int a = -7;
+    private static boolean positiveNumber1(int a) {
+
         if (a <= 0) {
             return true;
         } else {
@@ -107,14 +102,9 @@ public class Main {
 
     // 8
     public static void print() {
-        int m = 1;
 
-        while (m <= 5) {
+        for (int i = 0; i < 5; i++) {
             System.out.println("Печать строки");
-            m = m + 1;
-//             или
-//        for (int i = 0; i < 5 ;i++){
-//            System.out.println("Печать строки");
         }
 
     }
@@ -130,24 +120,23 @@ public class Main {
         }
     }
 
-    // 10
+//    10
+
     private static void arr() {
 
         int[] a = {0, 0, 0, 0, 0, 1, 1, 1, 1, 1};
-        a[0] = 1;
-        a[1] = 1;
-        a[2] = 1;
-        a[3] = 1;
-        a[4] = 1;
-        a[5] = 0;
-        a[6] = 0;
-        a[7] = 0;
-        a[8] = 0;
-        a[9] = 0;
+        for (int i = 0; i < a.length; i++) {
+            if (a[i] == 1) {
+                a[i] = 0;
+            } else {
+                a[i] = 1;
+            }
+        }
         System.out.println(Arrays.toString(a));
     }
 
-    //    11
+//       11
+
     public static void arr100() {
         int[] arr = new int[100];
         for (int i = 0; i <= 100; i++) {
@@ -158,7 +147,8 @@ public class Main {
 
     }
 
-    // 14
+//    14
+
     private static int[] returnArr(int len, int initialValue) {
 
         int[] arr = new int[len];
@@ -168,5 +158,4 @@ public class Main {
         return arr;
 
     }
-
 }
