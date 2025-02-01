@@ -1,69 +1,82 @@
 package org.example;
 
+import static java.lang.Integer.valueOf;
+
 public class Main {
     public static void main(String[] args) {
 
-        Dog dog1 = new Dog("Рекс");
-        Dog dog2 = new Dog("Риц");
+        String[][] stringArray1 = new String[][] {
+            {"3", "2", "7", "5"},
+            {"3", "6", "5", "4"},
+            {"3", "1", "6", "6"},
+            {"3", "1", "6", "9"}
+    };
+    String[][] stringArray2 = new String[][] {
+            {"3", "2", "7", "5"},
+            {"3", "6", "5", "4"},
+            {"3", "1", "6", "6"},
+            {"3", "f", "6", "9"}
+    };
+    String[][] stringArray3 = new String[][] {
+            {"3", "2", "7"},
+            {"3", "6", "5", "4"},
+            {"3", "1", "6", "6"},
+            {"3", "f", "6", "9"}
+    };
+    String[][] stringArray4 = new String[][] {
+            {"3", "6", "5", "4"},
+            {"3", "1", "6", "6"},
+            {"3", "f", "6", "9"}
+    };
 
-        Cat cat1 = new Cat("Соня");
-        Cat cat2 = new Cat("Мурка");
-        Cat cat3 = new Cat("Ночька");
-
-        System.out.println("Всего животных: " + Animal.getAnimalCount());
-        System.out.println("Всего собак: " + Dog.getDogCount());
-        System.out.println("Всего котов: " + Cat.getCatCount());
-
-        dog1.run(300);
-        dog1.swim(5);
-
-        dog2.run(600);
-        dog2.swim(15);
-
-        cat1.run(150);
-        cat1.swim(10);
-
-        Bowl bowl = new Bowl(20);
-        Cat[] cats = {cat1, cat2, cat3};
-
-        for (Cat cat : cats) {
-            cat.eat(bowl, 10);
-            System.out.println(cat.getName() + " сыт: " + cat.isFull());
-        }
-        System.out.println("Остаток еды в миске: " + bowl.getFood() + " ед.");
-
-        bowl.addFood(15);
-        System.out.println("Добавили еды. Теперь в миске: " + bowl.getFood() + " ед.");
-
-        for (Cat cat : cats) {
-            if (!cat.isFull()) {
-                cat.eat(bowl, 10);
-                System.out.println(cat.getName() + " сыт: " + cat.isFull());
-            }
-        }
-        System.out.println("Остаток еды в миске: " + bowl.getFood() + " ед.");
-        System.out.println("***********");
-
-
-        System.out.println("Задание №2");
-
-        Shape circle = new Circle(3, "Красный ", " Серый");
-        Shape rectangle = new Rectangle(2, 4, "Белый", "Желтый");
-        Shape triangle = new Triangle(5, 6, 3, "Фиолетовый", "Зеленый");
-
-
-        System.out.println("Круг:");
-        circle.printCharacteristics();
-        System.out.println("-----------------");
-
-        System.out.println("Прямоугольник:");
-        rectangle.printCharacteristics();
-        System.out.println("-----------------");
-
-        System.out.println("Треугольник:");
-        triangle.printCharacteristics();
-        System.out.println("-----------------");
+        try {
+        System.out.println("Сумма массива равна " + changeAndSum(stringArray1));
+    } catch (MyArraySizeException | MyArrayDataException r) {
+        System.out.println(r);
+    }
+        try {
+        System.out.println("Сумма массива равна " + changeAndSum(stringArray2));
+    } catch (MyArraySizeException | MyArrayDataException r) {
+        System.out.println(r);
+    }
+        try {
+        System.out.println("Сумма массива равна " + changeAndSum(stringArray3));
+    } catch (MyArraySizeException | MyArrayDataException r) {
+        System.out.println(r);
+    }
+        try {
+        System.out.println("Сумма массива равна " + changeAndSum(stringArray4));
+    } catch (MyArraySizeException | MyArrayDataException r) {
+        System.out.println(r);
     }
 }
 
+    private static int changeAndSum (String[][] in) throws MyArraySizeException, MyArrayDataException {
+        int arrLong = 4;
+        int sum = 0;
 
+
+        if (in.length != 4) {
+            throw new MyArraySizeException(String.format("Размер массива должна быть %dх%d.", arrLong, arrLong));
+        }
+
+        for (int i = 0; i < in.length; i++) {
+            if (in[i].length != 4) {
+                throw new MyArraySizeException(String.format("Размер массива должна быть %sх%s.", arrLong, arrLong));
+            }
+        }
+
+        for (int i = 0; i < in.length; i++) {
+            for (int j = 0; j < in[i].length; j++) {
+                try {
+                    sum += valueOf(in[i][j]);
+                } catch (NumberFormatException e) {
+                    throw new MyArrayDataException(String.format("Индексы [%d][%d] хранят не целое число %s.", i, j, in[i][j]));
+                }
+            }
+        }
+
+        return sum;
+    }
+
+}
