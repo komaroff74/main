@@ -8,7 +8,7 @@ public class FactorialTest {
    public void testCalculateFactorial() {
         assertEquals(1, CalculateFactorial.calculateFactorial(0));
         assertEquals(1, CalculateFactorial.calculateFactorial(1));
-        assertEquals(120, CalculateFactorial.calculateFactorial(5));
-        assertEquals(40320, CalculateFactorial.calculateFactorial(8));
+        assertEquals(6, CalculateFactorial.calculateFactorial(3));
+        assertEquals(5040, CalculateFactorial.calculateFactorial(7));
     }
 }
