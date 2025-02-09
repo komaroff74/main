@@ -1,0 +1,11 @@
+.idea
+.resources
+.classes
+.target
+/.target
+pom.xml
+target/test-classes/FactorialTest.class
+
+
+
+
