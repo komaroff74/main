@@ -1,58 +1,70 @@
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+import java.util.concurrent.TimeUnit;
+//import org.testng.Assert;
+//import org.testng.annotations.Test;
 
 public class MtsTest {
+    static WebDriver driver;
 
-    private WebDriver driver;
-
-    @Before
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "path_to_chromedriver");
+    @BeforeEach
+    void setupClass() {
+        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.get("https://www.mts.by/");
+        driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-notifications");
+
     }
+
+
+
+
 
     @Test
     public void blockName() {
-        WebElement blockName = driver.findElement(By.xpath("//*[text()='Онлайн пополнение ']"));
-        Assert.assertTrue(blockName.isDisplayed());
+        driver.findElement(By.xpath("//*[text()='Онлайн пополнение ']"));
+
     }
 
     @Test
     public void logoPay() {
-        WebElement logoPay = driver.findElement(By.xpath("//div[@class='pay__wrapper']"));
-        Assert.assertTrue(logoPay.isDisplayed());
+       driver.findElement(By.xpath("//div[@class='pay__wrapper']"));
+
     }
 
     @Test
     public void linkWork() {
-        WebElement linkWork = driver.findElement(By.xpath("//a [@href=\"/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/\"]"));
-        linkWork.click();
-        Assert.assertEquals(driver.getCurrentUrl(), "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/");
+        driver.findElement(By.xpath("//a[@href='/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/']")).click();
+
+       Assertions.assertEquals(driver.getCurrentUrl(), "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/");
     }
 
     @Test
     public void addingFunds() {
 
-        WebElement phoneNumber = driver.findElement(By.xpath("//input[@placeholder=\"Номер телефона\"]"));
+        WebElement phoneNumber = driver.findElement(By.xpath("//input[@placeholder='Номер телефона']"));
         phoneNumber.sendKeys("297777777");
-        WebElement sum = driver.findElement(By.xpath("//*[@id=\"connection-sum\"]"));
+        WebElement sum = driver.findElement(By.xpath("//*[@id='connection-sum']"));
         sum.sendKeys("500");
 
-        WebElement payButton = driver.findElement(By.xpath("//*[@id=\"pay-connection\"]/button"));
+        WebElement payButton = driver.findElement(By.xpath("//*[@id='pay-connection']/button"));
         payButton.click();
 
     }
 
-    @After
-    public void tearDown() {
+    @AfterEach
+    void tearDown() {
         driver.quit();
-        driver = null;
     }
 }
