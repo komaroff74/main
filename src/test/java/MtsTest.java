@@ -1,3 +1,4 @@
+import PageObject.MtsBy;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
@@ -27,27 +28,57 @@ public class MtsTest {
 
     }
 
-
-
-
-
     @Test
     public void blockName() {
-        driver.findElement(By.xpath("//*[text()='Онлайн пополнение ']"));
-
+        driver.findElement((By) new MtsBy(driver).name1 );
     }
 
     @Test
     public void logoPay() {
-       driver.findElement(By.xpath("//div[@class='pay__wrapper']"));
+        driver.findElement((By) new MtsBy(driver).logopay);
 
     }
 
     @Test
     public void linkWork() {
-        driver.findElement(By.xpath("//a[@href='/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/']")).click();
+        driver.findElement((By) new MtsBy(driver).link).click();
 
-       Assertions.assertEquals(driver.getCurrentUrl(), "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/");
+        Assertions.assertEquals(driver.getCurrentUrl(), "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/");
+    }
+
+    @Test
+    public void stroki() {
+        driver.findElement((By) new MtsBy(driver).stroki1);
+
+
+    }
+
+    @Test
+    public void homeNet() {
+        System.out.println("Задание №2");
+        driver.findElement((By) new MtsBy(driver).homenet1);
+        driver.switchTo();
+        driver.findElement((By) new MtsBy(driver).homenet2);
+        driver.findElement((By) new MtsBy(driver).netsum);
+    }
+
+    @Test
+    public void installmentPlan(){
+        driver.findElement((By) new MtsBy(driver).mentplan);
+        driver.switchTo();
+        driver.findElement((By) new MtsBy(driver).mentplan1);
+        driver.findElement((By) new MtsBy(driver).mentplan2);
+        driver.findElement((By) new MtsBy(driver).mailplan);
+
+    }
+    @Test
+    public void arrears(){
+        driver.findElement((By) new MtsBy(driver).arrears1);
+        driver.switchTo();
+        driver.findElement((By) new MtsBy(driver).nomber2073);
+        driver.findElement((By) new MtsBy(driver).arrsum);
+        driver.findElement((By) new MtsBy(driver).arrmail);
+
     }
 
     @Test
@@ -56,7 +87,7 @@ public class MtsTest {
         WebElement phoneNumber = driver.findElement(By.xpath("//input[@placeholder='Номер телефона']"));
         phoneNumber.sendKeys("297777777");
         WebElement sum = driver.findElement(By.xpath("//*[@id='connection-sum']"));
-        sum.sendKeys("500");
+        sum.sendKeys("5000");
 
         WebElement payButton = driver.findElement(By.xpath("//*[@id='pay-connection']/button"));
         payButton.click();
